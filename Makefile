@@ -3,7 +3,7 @@ HTMLFILES = html
 
 DOCS = \
 	${DOCFILES}/intro.md\
-	${DOCFILES}/conclusion.md
+	${DOCFILES}/outro.md
 
 doc: 
 	@markdown ${DOCS} > readme.md
