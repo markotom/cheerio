@@ -14,6 +14,7 @@ app = express.createServer();
 
 docs = [
 	'intro.md',
+	'api.md',
 	'outro.md'
 ];
 
