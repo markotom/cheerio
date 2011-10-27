@@ -7,7 +7,7 @@ Primary method for selecting elements in the document. `selector` searches withi
 
 __Examples:__
 
-    $(".apple", '.fruits').text()
+    $(".apple", '#fruits').text()
     => Apple
   
     $('ul .pear').attr('class')
