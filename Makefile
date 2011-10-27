@@ -4,11 +4,11 @@ HTMLFILES = html
 DOCS = \
 	${DOCFILES}/intro.md\
 	${DOCFILES}/loading.md\
-	${DOCFILES}/rendering.md\
 	${DOCFILES}/selectors.md\
 	${DOCFILES}/attributes.md\
 	${DOCFILES}/traversing.md\
 	${DOCFILES}/manipulation.md\
+	${DOCFILES}/rendering.md\
 	${DOCFILES}/miscellaneous.md\
 	${DOCFILES}/utils.md\
 	${DOCFILES}/thanks.md\

@@ -75,24 +75,6 @@ $('ul', '&lt;ul id = "fruits"&gt;...&lt;/ul&gt;')
 $('li', 'ul', '&lt;ul id = "fruits"&gt;...&lt;/ul&gt;')
 </code></pre>
 
-<h3>Rendering</h3>
-
-<p>When you're ready to render the document, you can use <code>html</code> utility function:</p>
-
-<pre><code>$.html()
-=&gt;  &lt;ul id = "fruits"&gt;
-      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
-      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
-      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
-    &lt;/ul&gt;
-</code></pre>
-
-<p>If you want to render just a piece of the document you can use selectors:</p>
-
-<pre><code>$('.pear').html()
-=&gt; &lt;li class = "pear"&gt;Pear&lt;/li&gt;
-</code></pre>
-
 <h3>Selectors</h3>
 
 <p>Cheerio's selector implementation is nearly identical to jQuery's, so the API is very similar.</p>
@@ -352,6 +334,24 @@ $('ul').text()
 =&gt;  Apple
     Orange
     Pear
+</code></pre>
+
+<h3>Rendering</h3>
+
+<p>When you're ready to render the document, you can use <code>html</code> utility function:</p>
+
+<pre><code>$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<p>If you want to render just a piece of the document you can use selectors:</p>
+
+<pre><code>$('.pear').html()
+=&gt; &lt;li class = "pear"&gt;Pear&lt;/li&gt;
 </code></pre>
 
 <h3>Miscellaneous</h3>
