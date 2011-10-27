@@ -1,4 +1,5 @@
 ### Attributes
+Methods for getting and modifying attributes.
 
 #### .attr( name, value )
 Method for getting and setting attributes. May also use a `map` and `function` like jQuery. Gets the attribute value for only the first element in the matched set. If you set an attribute's value to `null`, you remove that attribute.
