@@ -88,7 +88,3 @@ Get the combined text contents of each element in the set of matched elements, i
     =>  Apple
         Orange
         Pear
-
-    
-
-
