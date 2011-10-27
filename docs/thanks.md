@@ -3,7 +3,7 @@
 
 This library stands on the shoulders of some incredible developers. A special thanks to:
 
-__&#8226; @tautologistics's node-htmlparser:__
+__&#8226; @tautologistics' node-htmlparser:__
 This HTML parser can parse anything! The parser produces really consistent results, even when the HTML string has errors. This man is a genius.
  
 __&#8226; @harryf's node-soupselect:__ 
