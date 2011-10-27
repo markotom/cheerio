@@ -1,3 +1,4 @@
+
 ### Miscellaneous 
 DOM element methods that don't fit anywhere else
 
