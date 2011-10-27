@@ -24,25 +24,25 @@ Teach your server HTML.
 `npm install -g cheerio`
 
 ## Features
-__• Familiar syntax:__
+__&#10084; Familiar syntax:__
 Cheerio implements a subset of core jQuery. Cheerio removes all the DOM inconsistencies and browser cruft from the jQuery library, revealing a truly gorgeous API. 
 
-__• Blazingly fast:__
+__&#991; Blazingly fast:__
 Cheerio works with a very simple, consistent DOM model. As a result parsing, manipulating, and rendering are incredibly efficient. Preliminary end-to-end benchmarks suggest that cheerio is about 8x faster than JSDOM.
 
-__• Insanely flexible:__
-Cheerio wraps around tautologistic's forgiving HTML parser. Cheerio can parse nearly any page or chunk of html.
+__&#10049; Insanely flexible:__
+Cheerio wraps around tautologies forgiving htmlparser. Cheerio can parse nearly any page or chunk of html.
 
 ## What about JSDOM?
 I wrote cheerio because I found myself increasingly frustrated with JSDOM. For me, there were three main sticking points that I kept running into again and again:
 
-__• JSDOM's built-in parser is too strict:__
+__&#8226; JSDOM's built-in parser is too strict:__
   JSDOM's bundled HTML parser cannot handle many popular sites out there today.
 
-__• JSDOM is too slow:__
+__&#8226; JSDOM is too slow:__
 Parsing big websites with JSDOM has a noticeable delay.
 
-__• JSDOM feels too heavy:__
+__&#8226; JSDOM feels too heavy:__
 The goal of JSDOM is to provide an identical DOM environment as what we see in the browser. I never really needed all this, I just wanted a simple, familiar way to do HTML manipulation.
 
 ## API
@@ -371,16 +371,16 @@ Merge the contents of two arrays together into the first array.
 
 This library stands on the shoulders of some incredible developers. A special thanks to:
 
-__• @tautologistics's node-htmlparser:__
+__&#8226; @tautologistics's node-htmlparser:__
 This HTML parser can parse anything! The parser produces really consistent results, even when the HTML string has errors. This man is a genius.
  
-__• @harryf's node-soupselect:__ 
+__&#8226; @harryf's node-soupselect:__ 
 What an incredibly fast and precise CSS selector engine. Never really liked the feature-rich selector engines – this engine strikes a great balance.
 
-__• @jQuery team:__
+__&#8226; @jQuery team:__
 The core API is the best of it's class and despite dealing with all the browser inconsistencies the code base is extremely clean and easy to follow. Much of cheerio's implementation and documentation is from jQuery. Thanks guys.
 
-__• @visionmedia:__
+__&#8226; @visionmedia:__
 The style, the structure, the open-source"-ness" of this library comes from studying TJ's style and using many of his libraries. This dude consistently pumps out high-quality libraries and has always been more than willing to help or answer questions. You rock TJ.
 ## License 
 

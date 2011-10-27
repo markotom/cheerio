@@ -16,7 +16,8 @@ DOCS = \
 
 docs: 
 	@cat ${DOCS} > readme.md
-
+	@markdown readme.md > index.html
+	
 clean:
 	@rm -f index.html
 

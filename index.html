@@ -1,0 +1,459 @@
+<h1>cheerio</h1>
+
+<p>Tiny, fast, and elegant implementation of core jQuery built specifically for the server. </p>
+
+<h2>Introduction</h2>
+
+<p>Teach your server HTML.</p>
+
+<pre><code>var cheerio = require("cheerio"),
+    $ = cheerio.load("&lt;h2 class = 'title'&gt;Hello world&lt;/h2&gt;")
+
+$('h2.title').text('Hello there!')
+$('h2').addClass('welcome')
+
+$.html() 
+=&gt; &lt;h2 class = "title welcome"&gt;Hello there!&lt;/h2&gt;
+</code></pre>
+
+<h2>Installation</h2>
+
+<p><code>npm install cheerio</code></p>
+
+<p>... or to install the package globally:</p>
+
+<p><code>npm install -g cheerio</code></p>
+
+<h2>Features</h2>
+
+<p><strong>&#10084; Familiar syntax:</strong><br />Cheerio implements a subset of core jQuery. Cheerio removes all the DOM inconsistencies and browser cruft from the jQuery library, revealing a truly gorgeous API. </p>
+
+<p><strong>&#991; Blazingly fast:</strong><br />Cheerio works with a very simple, consistent DOM model. As a result parsing, manipulating, and rendering are incredibly efficient. Preliminary end-to-end benchmarks suggest that cheerio is about 8x faster than JSDOM.</p>
+
+<p><strong>&#10049; Insanely flexible:</strong><br />Cheerio wraps around tautologies forgiving htmlparser. Cheerio can parse nearly any page or chunk of html.</p>
+
+<h2>What about JSDOM?</h2>
+
+<p>I wrote cheerio because I found myself increasingly frustrated with JSDOM. For me, there were three main sticking points that I kept running into again and again:</p>
+
+<p><strong>&#8226; JSDOM's built-in parser is too strict:</strong><br />  JSDOM's bundled HTML parser cannot handle many popular sites out there today.</p>
+
+<p><strong>&#8226; JSDOM is too slow:</strong><br />Parsing big websites with JSDOM has a noticeable delay.</p>
+
+<p><strong>&#8226; JSDOM feels too heavy:</strong><br />The goal of JSDOM is to provide an identical DOM environment as what we see in the browser. I never really needed all this, I just wanted a simple, familiar way to do HTML manipulation.</p>
+
+<h2>API</h2>
+
+<h3>Markup example we'll be using:</h3>
+
+<pre><code>&lt;ul id = "fruits"&gt;
+  &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+  &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+  &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h3>Loading</h3>
+
+<p>First you need to load in the HTML. This step in jQuery is implicit, since jQuery operates on the one, baked-in DOM. With Cheerio, we need to pass in the HTML document. </p>
+
+<p>This is the preferred method:</p>
+
+<pre><code>var cheerio = require('cheerio'),
+    $ = cheerio.load( '&lt;ul id = "fruits"&gt;...&lt;/ul&gt;' )
+</code></pre>
+
+<p>Optionally, you can also load in the HTML by passing the string as the context:</p>
+
+<pre><code>$ = require('cheerio')
+$('ul', '&lt;ul id = "fruits"&gt;...&lt;/ul&gt;')
+</code></pre>
+
+<p>Or as the root:</p>
+
+<pre><code>$ = require('cheerio')
+$('li', 'ul', '&lt;ul id = "fruits"&gt;...&lt;/ul&gt;')
+</code></pre>
+
+<h3>Rendering</h3>
+
+<p>When you're ready to render the document, you can use <code>html</code> utility function:</p>
+
+<pre><code>$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<p>If you want to render just a piece of the document you can use selectors:</p>
+
+<pre><code>$('.pear').html()
+=&gt; &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+</code></pre>
+
+<h3>Selectors</h3>
+
+<p>Cheerio's selector implementation is nearly identical to jQuery's, so the API is very similar.</p>
+
+<h4>$( selector, [context], [root] )</h4>
+
+<p><code>selector</code> searches within the <code>context</code> scope which searches within the <code>root</code> scope. <code>selector</code> and <code>context</code> can be an string expression, DOM Element, array of DOM elements, or cheerio object. <code>root</code> is typically the HTML document string. </p>
+
+<p>This selector method is the starting point for traversing and manipulating the document. Like jQuery, it's the primary method for selecting elements in the document, but unlike jQuery it's built on top of the soup-select library, not the Sizzle engine. </p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>$(".apple", '#fruits').text()
+=&gt; Apple
+
+$('ul .pear').attr('class')
+=&gt; pear
+
+$('li[class=orange]').html()
+=&gt; &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+</code></pre>
+
+<blockquote>
+  <p>See <a href='http://api.jquery.com/jQuery/'>http://api.jquery.com/jQuery/</a> for more information</p>
+</blockquote>
+
+<h3>Attributes</h3>
+
+<p>Methods for getting and modifying attributes.</p>
+
+<h4>.attr( name, value )</h4>
+
+<p>Method for getting and setting attributes. May also use a <code>map</code> and <code>function</code> like jQuery. Gets the attribute value for only the first element in the matched set. If you set an attribute's value to <code>null</code>, you remove that attribute.</p>
+
+<pre><code>$('ul').attr('id')
+=&gt; fruits
+
+$('.apple').attr('id', 'favorite').html()
+=&gt; &lt;li class = "apple" id = "favorite"&gt;Apple&lt;/li&gt;
+</code></pre>
+
+<blockquote>
+  <p>See <a href='http://api.jquery.com/attr/'>http://api.jquery.com/attr/</a> for more information</p>
+</blockquote>
+
+<h4>.removeAttr( name )</h4>
+
+<p>Method for removing attributes by <code>name</code>.</p>
+
+<pre><code>$('.pear').removeAttr('class').html()
+=&gt; &lt;li&gt;Pear&lt;/li&gt;
+</code></pre>
+
+<h4>.hasClass( className )</h4>
+
+<p>Check to see if <em>any</em> of the matched elements have a given <code>className</code>.</p>
+
+<pre><code>$('.pear').hasClass('pear')
+=&gt; true
+
+$('apple').hasClass('fruit')
+=&gt; false
+
+$('li').hasClass('pear')
+=&gt; true
+</code></pre>
+
+<h4>addClass( className )</h4>
+
+<p>Adds class(es) to all of the matched elements. Also accepts a <code>function</code> like jQuery.</p>
+
+<pre><code>$('.pear').addClass('fruit').html()
+=&gt; &lt;li class = "pear fruit"&gt;Pear&lt;/li&gt;
+
+$('.apple').addClass('fruit red').html()
+=&gt; &lt;li class = "apple fruit red"&gt;Apple&lt;/li&gt;
+</code></pre>
+
+<blockquote>
+  <p>See <a href='http://api.jquery.com/addClass/'>http://api.jquery.com/addClass/</a> for more information.</p>
+</blockquote>
+
+<h4>removeClass( [className] )</h4>
+
+<p>Removes one or more space-separated classes from the selected elements. If no <code>className</code> is defined, all classes will be removed. Also accepts a <code>function</code> like jQuery.</p>
+
+<pre><code>$('.pear').removeClass('pear').html()
+=&gt; &lt;li class = ""&gt;Pear&lt;/li&gt;
+
+$('.apple').addClass('red').removeClass().html()
+=&gt; &lt;li class = ""&gt;Apple&lt;/li&gt;
+</code></pre>
+
+<blockquote>
+  <p>See <a href='http://api.jquery.com/removeClass/'>http://api.jquery.com/removeClass/</a> for more information.</p>
+</blockquote>
+
+<h3>Traversing</h3>
+
+<h4>.parent()</h4>
+
+<p>Gets the parent of the first selected element.</p>
+
+<pre><code>$('.pear').parent().attr('id')
+=&gt; fruits
+</code></pre>
+
+<h4>.next()</h4>
+
+<p>Gets the next sibling thats an element of the first selected element.</p>
+
+<pre><code>$('.apple').next().hasClass('orange')
+=&gt; true
+</code></pre>
+
+<h4>.prev()</h4>
+
+<p>Gets the previous sibling thats an element of the first selected element.</p>
+
+<pre><code>$('.orange').prev().hasClass('apple')
+=&gt; true
+</code></pre>
+
+<h4>.siblings()</h4>
+
+<p>Gets the first selected element's siblings. Excludes itself.</p>
+
+<pre><code>$('.pear').siblings().length
+=&gt; 2
+</code></pre>
+
+<h4>.children()</h4>
+
+<p>Gets the children of the first selected element.</p>
+
+<pre><code>$('#fruits').children().length
+=&gt; 3
+</code></pre>
+
+<h4>.each( function(index, element) )</h4>
+
+<p>Iterates over a cheerio object, executing a function for each matched element. When the callback is fired, the function is fired in the context of the DOM element, so <code>this</code> refers to the current element, same as <code>element</code>.</p>
+
+<pre><code>var fruits = [];
+
+$('li').each(function(i, elem) {
+  fruits[i] = $(this).text();
+});
+
+fruits.join(', ');
+=&gt; Apple, Orange, Pear
+</code></pre>
+
+<h3>Manipulation</h3>
+
+<p>Methods for modifying the DOM structure.</p>
+
+<h4>.append( content, [content, ...] )</h4>
+
+<p>Inserts content as the <em>last</em> child of each of the selected elements.</p>
+
+<pre><code>$('ul').append('&lt;li class = "plum"&gt;Plum&lt;/li&gt;')
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+      &lt;li class = "plum"&gt;Plum&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.prepend( content, [content, ...] )</h4>
+
+<p>Inserts content as the <em>first</em> child of each of the selected elements.</p>
+
+<pre><code>$('ul').prepend('&lt;li class = "plum"&gt;Plum&lt;/li&gt;')
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "plum"&gt;Plum&lt;/li&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.after( content, [content, ...] )</h4>
+
+<p>Insert content next to each element in the set of matched elements. </p>
+
+<pre><code>$('.apple').after('&lt;li class = "plum"&gt;Plum&lt;/li&gt;')
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "plum"&gt;Plum&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.before( content, [content, ...] )</h4>
+
+<p>Insert content previous to each element in the set of matched elements. </p>
+
+<pre><code>$('.apple').before('&lt;li class = "plum"&gt;Plum&lt;/li&gt;')
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "plum"&gt;Plum&lt;/li&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+      &lt;li class = "pear"&gt;Pear&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.remove( [selector] )</h4>
+
+<p>Removes the set of matched elements from the DOM and all their children. <code>selector</code> filters the set of matched elements to be removed.</p>
+
+<pre><code>$('.pear').remove()
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;
+      &lt;li class = "plum"&gt;Plum&lt;/li&gt;
+      &lt;li class = "apple"&gt;Apple&lt;/li&gt;
+      &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.empty()</h4>
+
+<p>Empties an element, removing all it's children.</p>
+
+<pre><code>$('ul').empty()
+$.html()
+=&gt;  &lt;ul id = "fruits"&gt;&lt;/ul&gt;
+</code></pre>
+
+<h4>.html( [htmlString] )</h4>
+
+<p>Gets an html content string from the first selected element. If <code>htmlString</code> is specified, each selected element's content is replaced by the new content.</p>
+
+<pre><code>$('.orange').html()
+=&gt; &lt;li class = "orange"&gt;Orange&lt;/li&gt;
+
+$('ul#fruits').html('&lt;li class = "mango"&gt;Mango&lt;/li&gt;').html()
+=&gt;  &lt;ul id="fruits"&gt;
+      &lt;li class="mango"&gt;Mango&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+
+<h4>.text( [textString] )</h4>
+
+<p>Get the combined text contents of each element in the set of matched elements, including their descendants.. If <code>textString</code> is specified, each selected element's content is replaced by the new text content.</p>
+
+<pre><code>$('.orange').text()
+=&gt; Orange
+
+$('ul').text()
+=&gt;  Apple
+    Orange
+    Pear
+</code></pre>
+
+<h3>Miscellaneous</h3>
+
+<p>DOM element methods that don't fit anywhere else</p>
+
+<h4>.get( [index] )</h4>
+
+<p>Retrieve the DOM elements matched by the cheerio object. If no index is specified, it will get an array of all matched elements.</p>
+
+<pre><code>$('li').get(0)
+=&gt; { raw: 'li class="apple"', ... }
+
+$('li').get()
+=&gt; [ {...}, {...}, {...} ]
+</code></pre>
+
+<h4>.size()</h4>
+
+<p>Return the number of elements in the cheerio object. Same as <code>length</code>.</p>
+
+<pre><code>$('li').size()
+=&gt; 3
+</code></pre>
+
+<h4>.toArray()</h4>
+
+<p>Retrieve all the DOM elements contained in the jQuery set, as an array.</p>
+
+<pre><code>$('li').toArray()
+=&gt; [ {...}, {...}, {...} ]
+</code></pre>
+
+<h3>Utilities</h3>
+
+<h4>$.dom()</h4>
+
+<p>Get the raw DOM of the parsed HTML document.</p>
+
+<pre><code>$.dom()
+=&gt; [ { raw: 'ul id="fruits"',
+    data: 'ul id="fruits"',
+    type: 'tag',
+    name: 'ul',
+    attribs: { id: 'fruits' },
+    children: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    parent: null,
+    prev: null,
+    next: null } ]
+</code></pre>
+
+<h4>$.isArray( array )</h4>
+
+<p>Checks to see the passed argument is an array.</p>
+
+<pre><code>$.isArray( $.dom() )
+=&gt; true
+</code></pre>
+
+<h4>$.inArray( elem, arr )</h4>
+
+<p>Checks to see if the element is in the array</p>
+
+<h4>$.makeArray( obj )</h4>
+
+<p>Turns an array-like object (like $) into a native array.</p>
+
+<h4>$.each( obj, function(index, elem) )</h4>
+
+<p>Generic iterator function.</p>
+
+<h4>$.merge( one, two )</h4>
+
+<p>Merge the contents of two arrays together into the first array.</p>
+
+<h2>Special Thanks</h2>
+
+<p>This library stands on the shoulders of some incredible developers. A special thanks to:</p>
+
+<p><strong>&#8226; @tautologistics's node-htmlparser:</strong><br />This HTML parser can parse anything! The parser produces really consistent results, even when the HTML string has errors. This man is a genius.</p>
+
+<p><strong>&#8226; @harryf's node-soupselect:</strong> <br />What an incredibly fast and precise CSS selector engine. Never really liked the feature-rich selector engines – this engine strikes a great balance.</p>
+
+<p><strong>&#8226; @jQuery team:</strong><br />The core API is the best of it's class and despite dealing with all the browser inconsistencies the code base is extremely clean and easy to follow. Much of cheerio's implementation and documentation is from jQuery. Thanks guys.</p>
+
+<p><strong>&#8226; @visionmedia:</strong><br />The style, the structure, the open-source"-ness" of this library comes from studying TJ's style and using many of his libraries. This dude consistently pumps out high-quality libraries and has always been more than willing to help or answer questions. You rock TJ.</p>
+
+<h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2011 Matt Mueller &lt;<a href='mailto:mattmuelle@gmail.com'>mattmuelle@gmail.com</a>&gt;</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining<br />a copy of this software and associated documentation files (the<br />'Software'), to deal in the Software without restriction, including<br />without limitation the rights to use, copy, modify, merge, publish,<br />distribute, sublicense, and/or sell copies of the Software, and to<br />permit persons to whom the Software is furnished to do so, subject to<br />the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be<br />included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,<br />EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF<br />MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.<br />IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY<br />CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,<br />TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE<br />SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
