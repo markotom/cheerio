@@ -6,12 +6,12 @@ Tiny, fast, and elegant implementation of core jQuery designed specifically for 
 Teach your server HTML.
 
     var cheerio = require("cheerio"),
-        $ = cheerio.load("<h2 class = 'title'>Hello world</h2>")
+        $ = cheerio.load("<h2 class = 'title'>Hello world</h2>");
   
-    $('h2.title').text('Hello there!')
-    $('h2').addClass('welcome')
+    $('h2.title').text('Hello there!');
+    $('h2').addClass('welcome');
 
-    $.html() 
+    $.html();
     => <h2 class = "title welcome">Hello there!</h2>
 
 
@@ -24,13 +24,13 @@ Teach your server HTML.
 
 ## Features
 __&#10084; Familiar syntax:__
-Cheerio implements a subset of core jQuery. Cheerio removes all the DOM inconsistencies and browser cruft from the jQuery library, revealing a truly gorgeous API. 
+Cheerio implements a subset of core jQuery. Cheerio removes all the DOM inconsistencies and browser cruft from the jQuery library, revealing its truly gorgeous API. 
 
 __&#991; Blazingly fast:__
 Cheerio works with a very simple, consistent DOM model. As a result parsing, manipulating, and rendering are incredibly efficient. Preliminary end-to-end benchmarks suggest that cheerio is about 8x faster than JSDOM.
 
 __&#10049; Insanely flexible:__
-Cheerio wraps around @tautologistics forgiving htmlparser. Cheerio can parse nearly any page or chunk of html or xml.
+Cheerio wraps around @tautologistics forgiving htmlparser. Cheerio can parse nearly any HTML or XML document.
 
 ## What about JSDOM?
 I wrote cheerio because I found myself increasingly frustrated with JSDOM. For me, there were three main sticking points that I kept running into again and again:
@@ -47,7 +47,6 @@ The goal of JSDOM is to provide an identical DOM environment as what we see in t
 ## API
 
 ### Markup example we'll be using:
-This is the HTML markup we will be selecting, traversing, and manipulating in all of the API examples.
 
     <ul id = "fruits">
       <li class = "apple">Apple</li>
@@ -55,4 +54,5 @@ This is the HTML markup we will be selecting, traversing, and manipulating in al
       <li class = "pear">Pear</li>
     </ul>
 
+This is the HTML markup we will be using in all of the API examples.
 

@@ -74,7 +74,7 @@ Gets an html content string from the first selected element. If `htmlString` is 
     $('.orange').html()
     => <li class = "orange">Orange</li>
     
-    $('ul#fruits').html('<li class = "mango">Mango</li>').html()
+    $('#fruits').html('<li class = "mango">Mango</li>').html()
     =>  <ul id="fruits">
           <li class="mango">Mango</li>
         </ul>

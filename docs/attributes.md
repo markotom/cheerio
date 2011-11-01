@@ -3,7 +3,7 @@
 Methods for getting and modifying attributes.
 
 #### .attr( name, value )
-Method for getting and setting attributes. May also use a `map` and `function` like jQuery. Gets the attribute value for only the first element in the matched set. If you set an attribute's value to `null`, you remove that attribute.
+Method for getting and setting attributes. Gets the attribute value for only the first element in the matched set. If you set an attribute's value to `null`, you remove that attribute. You may also pass a `map` and `function` like jQuery. 
 
     $('ul').attr('id')
     => fruits
@@ -20,7 +20,7 @@ Method for removing attributes by `name`.
     => <li>Pear</li>
 
 #### .hasClass( className )
-Check to see if *any* of the matched elements have a given `className`.
+Check to see if *any* of the matched elements have the given `className`.
 
     $('.pear').hasClass('pear')
     => true

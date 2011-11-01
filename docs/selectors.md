@@ -8,8 +8,6 @@ Cheerio's selector implementation is nearly identical to jQuery's, so the API is
 
 This selector method is the starting point for traversing and manipulating the document. Like jQuery, it's the primary method for selecting elements in the document, but unlike jQuery it's built on top of the soup-select library, not the Sizzle engine. 
 
-__Examples:__
-
     $(".apple", '#fruits').text()
     => Apple
   
@@ -19,5 +17,6 @@ __Examples:__
     $('li[class=orange]').html()
     => <li class = "orange">Orange</li>
 
+> See https://github.com/harryf/node-soupselect for all available selectors
 
 > See http://api.jquery.com/jQuery/ for more information

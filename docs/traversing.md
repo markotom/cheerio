@@ -20,7 +20,7 @@ Gets the previous sibling thats an element of the first selected element.
     => true
 
 #### .siblings()
-Gets the first selected element's siblings. Excludes itself.
+Gets the first selected element's siblings, excluding itself.
 
     $('.pear').siblings().length
     => 2
@@ -32,7 +32,7 @@ Gets the children of the first selected element.
     => 3
 
 #### .each( function(index, element) )
-Iterates over a cheerio object, executing a function for each matched element. When the callback is fired, the function is fired in the context of the DOM element, so `this` refers to the current element, same as `element`.
+Iterates over a cheerio object, executing a function for each matched element. When the callback is fired, the function is fired in the context of the DOM element, so `this` refers to the current element, which is equivalent to the function parameter `element`.
 
     var fruits = [];
     
