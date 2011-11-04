@@ -1,6 +1,12 @@
 
 ### Traversing
 
+#### .find(selector)
+Get a set of descendants filtered by `selector` of each element in the current set of matched elements.
+
+    $('#fruits').find('li').size()
+    => 3
+
 #### .parent()
 Gets the parent of the first selected element.
 
